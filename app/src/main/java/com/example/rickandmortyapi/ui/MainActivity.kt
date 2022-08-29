@@ -1,12 +1,12 @@
-package com.example.rickandmortyapi
+package com.example.rickandmortyapi.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.example.rickandmortyapi.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.security.AccessController
 
 class MainActivity : AppCompatActivity() {
 
