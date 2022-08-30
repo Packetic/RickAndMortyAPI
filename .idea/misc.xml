@@ -5,8 +5,9 @@
       <map>
         <entry key="..\:/Users/city2/AndroidStudioProjects/RickAndMortyAPI/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1455" />
         <entry key="..\:/Users/city2/AndroidStudioProjects/RickAndMortyAPI/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/city2/AndroidStudioProjects/RickAndMortyAPI/app/src/main/res/layout/fragment_character.xml" value="0.22" />
         <entry key="..\:/Users/city2/AndroidStudioProjects/RickAndMortyAPI/app/src/main/res/layout/fragment_saved.xml" value="0.1796875" />
-        <entry key="..\:/Users/city2/AndroidStudioProjects/RickAndMortyAPI/app/src/main/res/layout/fragment_search.xml" value="0.1796875" />
+        <entry key="..\:/Users/city2/AndroidStudioProjects/RickAndMortyAPI/app/src/main/res/layout/fragment_search.xml" value="0.22" />
         <entry key="..\:/Users/city2/AndroidStudioProjects/RickAndMortyAPI/app/src/main/res/menu/bottom_menu.xml" value="0.1796875" />
       </map>
     </option>

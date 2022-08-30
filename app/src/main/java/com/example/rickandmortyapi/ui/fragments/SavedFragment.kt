@@ -1,4 +1,4 @@
-package com.example.rickandmortyapi.ui.view
+package com.example.rickandmortyapi.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.example.rickandmortyapi.databinding.FragmentSavedBinding
 
 class SavedFragment : Fragment() {
-
     private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
 
