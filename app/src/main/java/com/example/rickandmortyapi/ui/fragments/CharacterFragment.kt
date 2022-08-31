@@ -47,6 +47,7 @@ class CharacterFragment : Fragment() {
                 binding.charOrigin.text = it.body()?.origin?.name
                 binding.charSpecies.text = it.body()?.species
                 binding.charStatus.text = it.body()?.status
+
                 loadImage(it.body()?.image)
                 stateSelector()
             }
