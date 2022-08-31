@@ -1,6 +1,6 @@
-package com.example.rickandmortyapi.model
+package com.example.rickandmortyapi.domain.response
 
-data class Character(
+data class CharacterResponse(
     val created: String,
     val episode: List<String>,
     val gender: String,

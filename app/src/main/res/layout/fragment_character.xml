@@ -13,7 +13,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/materialButton"
+        app:layout_constraintBottom_toTopOf="@+id/btnSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="Gender"
                 app:layout_constraintBottom_toBottomOf="@+id/char_gender"
-                app:layout_constraintEnd_toStartOf="@+id/genderSeparator"
+                app:layout_constraintEnd_toStartOf="@+id/locationSeparator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/char_gender" />
 
@@ -58,7 +58,7 @@
                 android:text="Human"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/speciesSeparator"
+                app:layout_constraintStart_toEndOf="@+id/locationSeparator"
                 app:layout_constraintTop_toBottomOf="@+id/char_name" />
 
             <TextView
@@ -69,7 +69,7 @@
                 android:text="Male"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/genderSeparator"
+                app:layout_constraintStart_toEndOf="@+id/locationSeparator"
                 app:layout_constraintTop_toBottomOf="@+id/char_species" />
 
             <TextView
@@ -91,7 +91,7 @@
                 android:text="Earth"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/originSeparator"
+                app:layout_constraintStart_toEndOf="@+id/locationSeparator"
                 app:layout_constraintTop_toBottomOf="@+id/char_gender" />
 
             <TextView
@@ -123,50 +123,19 @@
                 android:layout_height="wrap_content"
                 android:text="Species"
                 app:layout_constraintBottom_toBottomOf="@+id/char_species"
-                app:layout_constraintEnd_toStartOf="@+id/speciesSeparator"
+                app:layout_constraintEnd_toStartOf="@+id/locationSeparator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/char_species" />
-
-            <View
-                android:id="@+id/speciesSeparator"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/char_species"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/char_species" />
-
-            <View
-                android:id="@+id/genderSeparator"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:background="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/char_gender"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/char_gender" />
-
-            <View
-                android:id="@+id/originSeparator"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:background="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/char_origin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/char_origin" />
 
             <View
                 android:id="@+id/locationSeparator"
                 android:layout_width="2dp"
                 android:layout_height="0dp"
-                android:background="@color/black"
+                android:background="@color/red"
                 app:layout_constraintBottom_toBottomOf="@+id/char_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/char_location" />
+                app:layout_constraintTop_toTopOf="@+id/char_species" />
 
             <TextView
                 android:id="@+id/origin"
@@ -174,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:text="Origin"
                 app:layout_constraintBottom_toBottomOf="@+id/char_origin"
-                app:layout_constraintEnd_toStartOf="@+id/originSeparator"
+                app:layout_constraintEnd_toStartOf="@+id/locationSeparator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/char_origin" />
 
@@ -192,7 +161,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"

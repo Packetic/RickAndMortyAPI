@@ -5,24 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.rickandmortyapi.R
+import com.example.rickandmortyapi.data.local.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.FragmentCharacterBinding
+import com.example.rickandmortyapi.domain.enitity.Character
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class CharacterFragment : Fragment() {
+
     lateinit var viewModel: CharacterViewModel
+    lateinit var characterDb: CharacterDatabase
     private var _binding: FragmentCharacterBinding? = null
     private val binding get() = _binding!!
     private val args: CharacterFragmentArgs by navArgs()
+    private val job = Job()
+    private val characterFragmentScope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterBinding.inflate(inflater, container, false)
+        characterDb = CharacterDatabase.getDatabase(requireContext())
         return binding.root
     }
 
@@ -31,6 +43,13 @@ class CharacterFragment : Fragment() {
         viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
         viewModel.loadCharacterData(args.id)
         observeViewModel()
+
+        binding.btnSave.setOnClickListener {
+            saveData()
+            Toast.makeText(context,
+                "${binding.charName.text} is in your collection now!",
+                Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onDestroyView() {
@@ -39,7 +58,7 @@ class CharacterFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.character.observe(viewLifecycleOwner) {
+        viewModel.characterResponse.observe(viewLifecycleOwner) {
             if (it != null) {
                 binding.charGender.text = it.body()?.gender
                 binding.charLocation.text = it.body()?.location?.name
@@ -51,6 +70,21 @@ class CharacterFragment : Fragment() {
                 loadImage(it.body()?.image)
                 stateSelector()
             }
+        }
+    }
+
+    private fun saveData() {
+        val gender = binding.charGender.text.toString()
+        val location = binding.location.text.toString()
+        val name = binding.charName.text.toString()
+        val origin = binding.charOrigin.text.toString()
+        val species = binding.charSpecies.text.toString()
+        val status = binding.charStatus.text.toString()
+
+        val character = Character(null, name, status, gender, location, species, origin)
+
+        characterFragmentScope.launch(Dispatchers.IO) {
+            characterDb.characterDao().insert(character)
         }
     }
 
@@ -68,5 +102,10 @@ class CharacterFragment : Fragment() {
             "Unknown" -> binding.charImage.setStrokeColorResource(R.color.gray)
             else -> binding.charImage.setStrokeColorResource(R.color.white)
         }
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
     }
 }

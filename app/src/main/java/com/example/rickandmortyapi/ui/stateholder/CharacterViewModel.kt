@@ -5,19 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmortyapi.data.remote.repository.Repository
-import com.example.rickandmortyapi.model.Character
+import com.example.rickandmortyapi.domain.response.CharacterResponse
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class CharacterViewModel : ViewModel() {
     var repo = Repository()
 
-    private val _character = MutableLiveData<Response<Character>>(null)
-    val character: LiveData<Response<Character>> = _character
+    private val _characterResponse = MutableLiveData<Response<CharacterResponse>>(null)
+    val characterResponse: LiveData<Response<CharacterResponse>> = _characterResponse
 
     fun loadCharacterData(id: Int) {
         viewModelScope.launch {
-            _character.value = repo.getCharacter(id)
+            _characterResponse.value = repo.getCharacter(id)
         }
     }
 }
