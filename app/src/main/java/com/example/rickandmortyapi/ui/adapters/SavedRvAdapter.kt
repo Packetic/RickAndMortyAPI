@@ -5,27 +5,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortyapi.R
+import com.example.rickandmortyapi.databinding.ItemCardBinding
 import com.example.rickandmortyapi.ui.rvmodel.CharacterRv
-import kotlinx.android.synthetic.main.item_card.view.*
 
 class SavedRvAdapter(var characters: List<CharacterRv>):
     RecyclerView.Adapter<SavedRvAdapter.SavedViewHolder>() {
 
-    inner class SavedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    inner class SavedViewHolder(val binding: ItemCardBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false)
-        return SavedViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemCardBinding.inflate(layoutInflater, parent, false)
+        return SavedViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SavedViewHolder, position: Int) {
         // TODO: kotlin extentions is deprecated, replace with binding
-        holder.itemView.apply {
+        holder.binding.apply {
             rvName.text = characters[position].name
             rvGender.text = characters[position].gender
             rvSpecies.text = characters[position].species
             rvOrigin.text = characters[position].origin
             rvImage.setImageResource(characters[position].image)
+            rvImage.setStrokeColorResource(when(characters[position].species) {
+                "Alive" -> R.color.green
+                "Dead" -> R.color.red
+                "Unknown" -> R.color.gray
+                else -> R.color.white
+            })
         }
     }
 
