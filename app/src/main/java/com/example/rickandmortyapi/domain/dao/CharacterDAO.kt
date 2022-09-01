@@ -1,16 +1,16 @@
 package com.example.rickandmortyapi.domain.dao
 
 import androidx.room.*
-import com.example.rickandmortyapi.domain.enitity.Character
+import com.example.rickandmortyapi.domain.enitity.CharacterRM
 
 @Dao
 interface CharacterDAO {
     @Query("SELECT * FROM characters_table")
-    fun getAll(): List<Character>
+    suspend fun getAll(): List<CharacterRM>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(character: Character)
+    suspend fun insert(characterRM: CharacterRM)
 
     @Delete
-    suspend fun delete(character: Character)
+    suspend fun delete(characterRM: CharacterRM)
 }

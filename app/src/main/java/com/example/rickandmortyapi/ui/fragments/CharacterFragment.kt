@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.rickandmortyapi.R
 import com.example.rickandmortyapi.data.local.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.FragmentCharacterBinding
-import com.example.rickandmortyapi.domain.enitity.Character
+import com.example.rickandmortyapi.domain.enitity.CharacterRM
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -73,6 +74,7 @@ class CharacterFragment : Fragment() {
         }
     }
 
+    // TODO: move to viewmodel
     private fun saveData() {
         val gender = binding.charGender.text.toString()
         val location = binding.location.text.toString()
@@ -80,11 +82,12 @@ class CharacterFragment : Fragment() {
         val origin = binding.charOrigin.text.toString()
         val species = binding.charSpecies.text.toString()
         val status = binding.charStatus.text.toString()
+        val image = binding.charImage.drawable.toBitmap()
 
-        val character = Character(null, name, status, gender, location, species, origin)
+        val characterRM = CharacterRM(null, name, status, gender, location, species, origin, image)
 
         characterFragmentScope.launch(Dispatchers.IO) {
-            characterDb.characterDao().insert(character)
+            characterDb.characterDao().insert(characterRM)
         }
     }
 
@@ -99,7 +102,7 @@ class CharacterFragment : Fragment() {
         when(binding.charStatus.text) {
             "Alive" -> binding.charImage.setStrokeColorResource(R.color.green)
             "Dead" -> binding.charImage.setStrokeColorResource(R.color.red)
-            "Unknown" -> binding.charImage.setStrokeColorResource(R.color.gray)
+            "unknown" -> binding.charImage.setStrokeColorResource(R.color.gray)
             else -> binding.charImage.setStrokeColorResource(R.color.white)
         }
     }
