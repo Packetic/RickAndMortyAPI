@@ -5,26 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmortyapi.data.local.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.FragmentSavedBinding
 import com.example.rickandmortyapi.domain.enitity.CharacterRM
 import com.example.rickandmortyapi.ui.adapters.SavedRvAdapter
+import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 import kotlinx.coroutines.*
 
 class SavedFragment : Fragment() {
     lateinit var characterDb: CharacterDatabase
+    lateinit var viewModel: CharacterViewModel
     private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
-    private val job = Job()
-    private val savedFragmentScope = CoroutineScope(Dispatchers.Main + job)
-    lateinit var list: List<CharacterRM>
+    private lateinit var savedRvAdapter: SavedRvAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        readData()
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
         characterDb = CharacterDatabase.getDatabase(requireContext())
         return binding.root
@@ -32,9 +33,11 @@ class SavedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = SavedRvAdapter(list)
-        binding.rvCharacters.adapter = adapter
-        binding.rvCharacters.layoutManager = LinearLayoutManager(context)
+        viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
+        viewModel.getCharacterFromDB(characterDb)
+
+        observeViewModel()
+        setupRecyclerView()
     }
 
     override fun onDestroyView() {
@@ -42,13 +45,15 @@ class SavedFragment : Fragment() {
         _binding = null
     }
 
-    // TODO: move to viewmodel
-    private fun readData() {
-        lateinit var characterRMList: List<CharacterRM>
-        savedFragmentScope.launch {
-            // TODO: getAll() method is not working
-            characterRMList = characterDb.characterDao().getAll()
-            list = characterRMList
+    private fun setupRecyclerView() {
+        savedRvAdapter = SavedRvAdapter()
+        binding.rvCharacters.adapter = savedRvAdapter
+        binding.rvCharacters.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun observeViewModel() {
+        viewModel.characterRM.observe(viewLifecycleOwner) {
+            if (it != null) savedRvAdapter.submitList(it)
         }
     }
 }
