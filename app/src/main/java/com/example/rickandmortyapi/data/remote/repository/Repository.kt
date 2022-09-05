@@ -13,4 +13,10 @@ class Repository {
     suspend fun readData(characterDb: CharacterDatabase): List<CharacterRM> {
         return characterDb.characterDao().getAll()
     }
+    suspend fun insertData(characterDb: CharacterDatabase, characterRM: CharacterRM) {
+        characterDb.characterDao().insert(characterRM)
+    }
+    suspend fun deleteData(characterDb: CharacterDatabase, characterRM: CharacterRM) {
+        characterDb.characterDao().delete(characterRM)
+    }
 }

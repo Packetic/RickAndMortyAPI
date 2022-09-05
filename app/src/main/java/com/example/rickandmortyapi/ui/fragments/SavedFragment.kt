@@ -15,7 +15,7 @@ import com.example.rickandmortyapi.ui.adapters.SavedRvAdapter
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 import kotlinx.coroutines.*
 
-class SavedFragment : Fragment() {
+class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
     lateinit var characterDb: CharacterDatabase
     lateinit var viewModel: CharacterViewModel
     private var _binding: FragmentSavedBinding? = null
@@ -46,7 +46,7 @@ class SavedFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        savedRvAdapter = SavedRvAdapter()
+        savedRvAdapter = SavedRvAdapter(this)
         binding.rvCharacters.adapter = savedRvAdapter
         binding.rvCharacters.layoutManager = LinearLayoutManager(context)
     }
@@ -56,4 +56,14 @@ class SavedFragment : Fragment() {
             if (it != null) savedRvAdapter.submitList(it)
         }
     }
+
+    override fun onReceiveDbInstance(): CharacterDatabase {
+        return characterDb
+    }
+
+    override fun onReceiveViewModelInstance(): CharacterViewModel {
+        return viewModel
+    }
+
+
 }

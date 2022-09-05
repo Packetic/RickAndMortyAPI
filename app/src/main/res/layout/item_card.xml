@@ -90,7 +90,7 @@
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

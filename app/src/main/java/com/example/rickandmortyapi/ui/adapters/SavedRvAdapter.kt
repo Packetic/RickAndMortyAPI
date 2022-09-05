@@ -7,13 +7,21 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortyapi.R
+import com.example.rickandmortyapi.data.local.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.ItemCardBinding
 import com.example.rickandmortyapi.domain.enitity.CharacterRM
+import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 
-class SavedRvAdapter : ListAdapter<CharacterRM, SavedRvAdapter.SavedViewHolder>(SavedRvItemDiffCallback()) {
+class SavedRvAdapter(private val listener: ReceiveDataFromSavedFragment)
+    : ListAdapter<CharacterRM, SavedRvAdapter.SavedViewHolder>(SavedRvItemDiffCallback()) {
 
-    inner class SavedViewHolder(val binding: ItemCardBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class SavedViewHolder(private val binding: ItemCardBinding)
+        : RecyclerView.ViewHolder(binding.root) {
         fun bind(savedItem: CharacterRM) {
+
+            val characterDb = listener.onReceiveDbInstance()
+            val viewModel = listener.onReceiveViewModelInstance()
+
             binding.apply {
                 rvName.text = savedItem.name
                 rvGender.text = savedItem.gender
@@ -27,6 +35,9 @@ class SavedRvAdapter : ListAdapter<CharacterRM, SavedRvAdapter.SavedViewHolder>(
                         "Unknown" -> R.color.gray
                         else -> R.color.white
                     })
+                btnDelete.setOnClickListener {
+                    viewModel.deleteCharacterFromDB(characterDb, savedItem)
+                }
             }
         }
     }
@@ -43,5 +54,10 @@ class SavedRvAdapter : ListAdapter<CharacterRM, SavedRvAdapter.SavedViewHolder>(
     override fun onBindViewHolder(holder: SavedViewHolder, position: Int) {
         val savedItem = getItem(position)
         holder.bind(savedItem)
+    }
+
+    interface ReceiveDataFromSavedFragment {
+        fun onReceiveDbInstance(): CharacterDatabase
+        fun onReceiveViewModelInstance(): CharacterViewModel
     }
 }

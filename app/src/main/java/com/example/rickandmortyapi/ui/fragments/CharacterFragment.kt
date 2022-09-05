@@ -27,8 +27,6 @@ class CharacterFragment : Fragment() {
     private var _binding: FragmentCharacterBinding? = null
     private val binding get() = _binding!!
     private val args: CharacterFragmentArgs by navArgs()
-    private val job = Job()
-    private val characterFragmentScope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,6 +74,11 @@ class CharacterFragment : Fragment() {
 
     // TODO: move to viewmodel
     private fun saveData() {
+        val characterRM = setupCharacterRM()
+        viewModel.writeCharacterToDB(characterDb, characterRM)
+    }
+
+    private fun setupCharacterRM(): CharacterRM {
         val gender = binding.charGender.text.toString()
         val location = binding.location.text.toString()
         val name = binding.charName.text.toString()
@@ -84,11 +87,7 @@ class CharacterFragment : Fragment() {
         val status = binding.charStatus.text.toString()
         val image = binding.charImage.drawable.toBitmap()
 
-        val characterRM = CharacterRM(null, name, status, gender, location, species, origin, image)
-
-        characterFragmentScope.launch(Dispatchers.IO) {
-            characterDb.characterDao().insert(characterRM)
-        }
+        return CharacterRM(null, name, status, gender, location, species, origin, image)
     }
 
     private fun loadImage(image: String?) {
@@ -105,10 +104,5 @@ class CharacterFragment : Fragment() {
             "unknown" -> binding.charImage.setStrokeColorResource(R.color.gray)
             else -> binding.charImage.setStrokeColorResource(R.color.white)
         }
-    }
-
-    override fun onDestroy() {
-        job.cancel()
-        super.onDestroy()
     }
 }
