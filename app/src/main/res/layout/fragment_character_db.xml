@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.CharacterFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_cardview"
+            android:paddingLeft="10dp"
+            android:paddingTop="30dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/char_name_db"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Rick Sanchez"
+                android:textColor="@color/red"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/char_image_db" />
+
+            <TextView
+                android:id="@+id/gender_db"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                app:layout_constraintBottom_toBottomOf="@+id/char_gender_db"
+                app:layout_constraintEnd_toStartOf="@+id/locationSeparator_db"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/char_gender_db" />
+
+            <TextView
+                android:id="@+id/char_species_db"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Human"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/locationSeparator_db"
+                app:layout_constraintTop_toBottomOf="@+id/char_name_db" />
+
+            <TextView
+                android:id="@+id/char_gender_db"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Male"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/locationSeparator_db"
+                app:layout_constraintTop_toBottomOf="@+id/char_species_db" />
+
+            <TextView
+                android:id="@+id/char_location_db"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Citadel of Ricks"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/locationSeparator_db"
+                app:layout_constraintTop_toBottomOf="@+id/char_origin_db" />
+
+            <TextView
+                android:id="@+id/char_origin_db"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Earth"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/locationSeparator_db"
+                app:layout_constraintTop_toBottomOf="@+id/char_gender_db" />
+
+            <TextView
+                android:id="@+id/char_status_db"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alive"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/char_image_db"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="5dp"
+                android:padding="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+                app:strokeColor="@color/red"
+                app:strokeWidth="5dp"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/species_db"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Species"
+                app:layout_constraintBottom_toBottomOf="@+id/char_species_db"
+                app:layout_constraintEnd_toStartOf="@+id/locationSeparator_db"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/char_species_db" />
+
+            <View
+                android:id="@+id/locationSeparator_db"
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:background="@color/red"
+                app:layout_constraintBottom_toBottomOf="@+id/char_location_db"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/char_species_db" />
+
+            <TextView
+                android:id="@+id/origin_db"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Origin"
+                app:layout_constraintBottom_toBottomOf="@+id/char_origin_db"
+                app:layout_constraintEnd_toStartOf="@+id/locationSeparator_db"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/char_origin_db" />
+
+            <TextView
+                android:id="@+id/location_db"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                app:layout_constraintBottom_toBottomOf="@+id/char_location_db"
+                app:layout_constraintEnd_toStartOf="@+id/locationSeparator_db"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/char_location_db" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

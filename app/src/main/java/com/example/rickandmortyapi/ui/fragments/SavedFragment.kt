@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmortyapi.data.local.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.FragmentSavedBinding
@@ -46,6 +47,7 @@ class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
     }
 
     private fun setupRecyclerView() {
+        // TODO: let me introduce my cringe-driven development
         savedRvAdapter = SavedRvAdapter(this)
         binding.rvCharacters.adapter = savedRvAdapter
         binding.rvCharacters.layoutManager = LinearLayoutManager(context)
@@ -54,6 +56,13 @@ class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
     private fun observeViewModel() {
         viewModel.characterRM.observe(viewLifecycleOwner) {
             if (it != null) savedRvAdapter.submitList(it)
+        }
+        // TODO: possible cringe
+        viewModel.isDeleted.observe(viewLifecycleOwner) { it1 ->
+            if (it1 == true) {
+                viewModel.resetDeletedValue()
+            }
+            savedRvAdapter.submitList(viewModel.characterRM.value)
         }
     }
 
@@ -64,6 +73,4 @@ class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
     override fun onReceiveViewModelInstance(): CharacterViewModel {
         return viewModel
     }
-
-
 }

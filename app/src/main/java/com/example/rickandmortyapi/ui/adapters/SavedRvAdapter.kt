@@ -5,23 +5,28 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.core.graphics.drawable.toDrawable
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortyapi.R
 import com.example.rickandmortyapi.data.local.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.ItemCardBinding
 import com.example.rickandmortyapi.domain.enitity.CharacterRM
+import com.example.rickandmortyapi.ui.fragments.SavedFragmentDirections
+import androidx.navigation.fragment.findNavController
+import com.example.rickandmortyapi.ui.fragments.SearchFragmentDirections
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 
-class SavedRvAdapter(private val listener: ReceiveDataFromSavedFragment)
+class SavedRvAdapter(listener: ReceiveDataFromSavedFragment)
     : ListAdapter<CharacterRM, SavedRvAdapter.SavedViewHolder>(SavedRvItemDiffCallback()) {
+
+    val characterDb = listener.onReceiveDbInstance()
+    val viewModel = listener.onReceiveViewModelInstance()
 
     inner class SavedViewHolder(private val binding: ItemCardBinding)
         : RecyclerView.ViewHolder(binding.root) {
         fun bind(savedItem: CharacterRM) {
-
-            val characterDb = listener.onReceiveDbInstance()
-            val viewModel = listener.onReceiveViewModelInstance()
-
             binding.apply {
                 rvName.text = savedItem.name
                 rvGender.text = savedItem.gender
@@ -37,6 +42,14 @@ class SavedRvAdapter(private val listener: ReceiveDataFromSavedFragment)
                     })
                 btnDelete.setOnClickListener {
                     viewModel.deleteCharacterFromDB(characterDb, savedItem)
+                }
+                btnDetails.setOnClickListener {
+                    val action = savedItem.id?.let { it1 ->
+                        SavedFragmentDirections.actionSavedFragmentToCharacterDbFragment(it1)
+                    }
+                    if (action != null) {
+                        it.findNavController().navigate(action)
+                    }
                 }
             }
         }

@@ -13,6 +13,9 @@ class Repository {
     suspend fun readData(characterDb: CharacterDatabase): List<CharacterRM> {
         return characterDb.characterDao().getAll()
     }
+    suspend fun readDataById(characterDb: CharacterDatabase, id: Int): CharacterRM {
+        return characterDb.characterDao().getById(id)
+    }
     suspend fun insertData(characterDb: CharacterDatabase, characterRM: CharacterRM) {
         characterDb.characterDao().insert(characterRM)
     }

@@ -1,7 +1,6 @@
 package com.example.rickandmortyapi.ui.fragments
 
 import android.os.Bundle
-import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +24,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnFind.setOnClickListener {
-            // TODO: let me introduce my cringe-driven development
             if (binding.numId.text != null && binding.numId.text.toString().toIntOrNull() in 1..200) {
                 val num = binding.numId.text.toString().toInt()
                 val action = SearchFragmentDirections.actionSearchFragmentToCharacterFragment(num)

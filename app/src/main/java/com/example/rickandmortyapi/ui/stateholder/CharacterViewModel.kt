@@ -21,6 +21,12 @@ class CharacterViewModel : ViewModel() {
     private val _characterRM = MutableLiveData<List<CharacterRM>>(null)
     val characterRM: LiveData<List<CharacterRM>> = _characterRM
 
+    private val _characterRMById = MutableLiveData<CharacterRM>(null)
+    val characterRMById: LiveData<CharacterRM> = _characterRMById
+
+    private val _isDeleted = MutableLiveData<Boolean>(null)
+    val isDeleted: LiveData<Boolean> = _isDeleted
+
     fun loadCharacterData(id: Int) {
         viewModelScope.launch {
             _characterResponse.value = repo.getCharacter(id)
@@ -32,6 +38,13 @@ class CharacterViewModel : ViewModel() {
             _characterRM.value = repo.readData(characterDb)
         }
     }
+
+    fun getCharacterFromDbById(characterDb: CharacterDatabase, id: Int) {
+        viewModelScope.launch {
+            _characterRMById.value = repo.readDataById(characterDb, id)
+        }
+    }
+
     fun writeCharacterToDB(characterDb: CharacterDatabase, characterRM: CharacterRM) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.insertData(characterDb, characterRM)
@@ -41,6 +54,13 @@ class CharacterViewModel : ViewModel() {
     fun deleteCharacterFromDB(characterDB: CharacterDatabase, characterRM: CharacterRM) {
         viewModelScope.launch() {
             repo.deleteData(characterDB, characterRM)
+            _isDeleted.value = true
+        }
+    }
+
+    fun resetDeletedValue() {
+        viewModelScope.launch {
+            _isDeleted.value = false
         }
     }
 }
