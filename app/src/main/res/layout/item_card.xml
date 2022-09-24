@@ -32,12 +32,14 @@
 
         <TextView
             android:id="@+id/rvName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
+            android:layout_marginEnd="10dp"
             android:text="Rick Sanchez"
             android:textColor="@color/red"
             android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnDetails"
             app:layout_constraintStart_toEndOf="@+id/rvImage"
             app:layout_constraintTop_toTopOf="@+id/rvImage" />
 
@@ -83,10 +85,11 @@
             android:id="@+id/btnDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="25dp"
-            app:layout_constraintBottom_toBottomOf="@+id/rvImage"
+            app:layout_constraintBottom_toBottomOf="@+id/rvName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rvImage"
+            app:layout_constraintTop_toTopOf="@+id/rvName"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
         <ImageView
@@ -94,9 +97,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/rvName"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rvOrigin"
             app:layout_constraintStart_toEndOf="@+id/rvName"
-            app:layout_constraintTop_toTopOf="@+id/rvName"
+            app:layout_constraintTop_toBottomOf="@+id/rvSpecies"
             app:srcCompat="@drawable/ic_baseline_delete_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

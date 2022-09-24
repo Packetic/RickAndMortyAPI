@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/saved"
+    app:startDestination="@id/savedFragment">
+    <fragment
+        android:id="@+id/savedFragment"
+        android:name="com.example.rickandmortyapi.ui.fragments.SavedFragment"
+        android:label="fragment_saved"
+        tools:layout="@layout/fragment_saved" >
+        <action
+            android:id="@+id/action_savedFragment_to_characterDbFragment"
+            app:destination="@id/characterDbFragment"
+            app:popUpTo="@id/savedFragment"
+            app:restoreState="true"
+            app:popUpToSaveState="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/characterDbFragment"
+        android:name="com.example.rickandmortyapi.ui.fragments.CharacterDbFragment"
+        android:label="CharacterDbFragment" >
+        <argument
+            android:name="id_db"
+            app:argType="integer" />
+    </fragment>
+</navigation>

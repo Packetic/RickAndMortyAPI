@@ -11,9 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.rickandmortyapi.R
-import com.example.rickandmortyapi.data.local.room.CharacterDatabase
+import com.example.rickandmortyapi.domain.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.FragmentCharacterBinding
 import com.example.rickandmortyapi.domain.enitity.CharacterRM
+import com.example.rickandmortyapi.ui.MainActivity
+import com.example.rickandmortyapi.ui.ProvideDataBase
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,12 +35,13 @@ class CharacterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterBinding.inflate(inflater, container, false)
-        characterDb = CharacterDatabase.getDatabase(requireContext())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // TODO: boilerplate
+        characterDb = MainActivity().provideDataBase()
         viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
         viewModel.loadCharacterData(args.id)
         observeViewModel()

@@ -9,9 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rickandmortyapi.data.local.room.CharacterDatabase
+import com.example.rickandmortyapi.domain.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.FragmentSavedBinding
 import com.example.rickandmortyapi.domain.enitity.CharacterRM
+import com.example.rickandmortyapi.ui.MainActivity
 import com.example.rickandmortyapi.ui.adapters.SavedRvAdapter
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 import kotlinx.coroutines.*
@@ -28,7 +29,7 @@ class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
-        characterDb = CharacterDatabase.getDatabase(requireContext())
+        characterDb = MainActivity().provideDataBase()
         return binding.root
     }
 
@@ -57,12 +58,10 @@ class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
         viewModel.characterRM.observe(viewLifecycleOwner) {
             if (it != null) savedRvAdapter.submitList(it)
         }
-        // TODO: possible cringe
-        viewModel.isDeleted.observe(viewLifecycleOwner) { it1 ->
-            if (it1 == true) {
+        viewModel.isDeleted.observe(viewLifecycleOwner) {
+            if (it == true) {
                 viewModel.resetDeletedValue()
             }
-            savedRvAdapter.submitList(viewModel.characterRM.value)
         }
     }
 

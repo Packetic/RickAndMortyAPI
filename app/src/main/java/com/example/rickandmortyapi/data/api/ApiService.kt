@@ -1,4 +1,4 @@
-package com.example.rickandmortyapi.data.remote.api
+package com.example.rickandmortyapi.data.api
 
 import com.example.rickandmortyapi.domain.response.CharacterResponse
 import retrofit2.Response

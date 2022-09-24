@@ -1,4 +1,4 @@
-package com.example.rickandmortyapi.data.local.room
+package com.example.rickandmortyapi.domain.room
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

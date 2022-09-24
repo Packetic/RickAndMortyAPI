@@ -10,18 +10,19 @@ import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortyapi.R
-import com.example.rickandmortyapi.data.local.room.CharacterDatabase
+import com.example.rickandmortyapi.domain.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.ItemCardBinding
 import com.example.rickandmortyapi.domain.enitity.CharacterRM
 import com.example.rickandmortyapi.ui.fragments.SavedFragmentDirections
 import androidx.navigation.fragment.findNavController
+import com.example.rickandmortyapi.ui.MainActivity
 import com.example.rickandmortyapi.ui.fragments.SearchFragmentDirections
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 
 class SavedRvAdapter(listener: ReceiveDataFromSavedFragment)
     : ListAdapter<CharacterRM, SavedRvAdapter.SavedViewHolder>(SavedRvItemDiffCallback()) {
 
-    val characterDb = listener.onReceiveDbInstance()
+    val characterDb = MainActivity().provideDataBase()
     val viewModel = listener.onReceiveViewModelInstance()
 
     inner class SavedViewHolder(private val binding: ItemCardBinding)

@@ -10,9 +10,11 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.rickandmortyapi.R
-import com.example.rickandmortyapi.data.local.room.CharacterDatabase
+import com.example.rickandmortyapi.domain.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.FragmentCharacterBinding
 import com.example.rickandmortyapi.databinding.FragmentCharacterDbBinding
+import com.example.rickandmortyapi.ui.MainActivity
+import com.example.rickandmortyapi.ui.ProvideDataBase
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 
 class CharacterDbFragment : Fragment() {
@@ -28,7 +30,7 @@ class CharacterDbFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterDbBinding.inflate(inflater, container, false)
-        characterDb = CharacterDatabase.getDatabase(requireContext())
+        characterDb = MainActivity().provideDataBase()
         return binding.root
     }
 
