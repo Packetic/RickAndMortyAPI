@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
@@ -17,9 +18,8 @@ import com.example.rickandmortyapi.ui.adapters.SavedRvAdapter
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 import kotlinx.coroutines.*
 
-class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
+class SavedFragment : Fragment() {
     lateinit var characterDb: CharacterDatabase
-    lateinit var viewModel: CharacterViewModel
     private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
     private lateinit var savedRvAdapter: SavedRvAdapter
@@ -29,7 +29,7 @@ class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
-        characterDb = MainActivity().provideDataBase()
+        characterDb = MainActivity.characterDb
         return binding.root
     }
 
@@ -48,8 +48,7 @@ class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
     }
 
     private fun setupRecyclerView() {
-        // TODO: let me introduce my cringe-driven development
-        savedRvAdapter = SavedRvAdapter(this)
+        savedRvAdapter = SavedRvAdapter()
         binding.rvCharacters.adapter = savedRvAdapter
         binding.rvCharacters.layoutManager = LinearLayoutManager(context)
     }
@@ -65,11 +64,7 @@ class SavedFragment : Fragment(), SavedRvAdapter.ReceiveDataFromSavedFragment {
         }
     }
 
-    override fun onReceiveDbInstance(): CharacterDatabase {
-        return characterDb
-    }
-
-    override fun onReceiveViewModelInstance(): CharacterViewModel {
-        return viewModel
+    companion object {
+        lateinit var viewModel: CharacterViewModel
     }
 }

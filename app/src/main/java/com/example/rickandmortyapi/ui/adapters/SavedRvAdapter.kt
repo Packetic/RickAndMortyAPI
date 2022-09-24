@@ -16,14 +16,15 @@ import com.example.rickandmortyapi.domain.enitity.CharacterRM
 import com.example.rickandmortyapi.ui.fragments.SavedFragmentDirections
 import androidx.navigation.fragment.findNavController
 import com.example.rickandmortyapi.ui.MainActivity
+import com.example.rickandmortyapi.ui.fragments.SavedFragment
 import com.example.rickandmortyapi.ui.fragments.SearchFragmentDirections
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 
-class SavedRvAdapter(listener: ReceiveDataFromSavedFragment)
+class SavedRvAdapter
     : ListAdapter<CharacterRM, SavedRvAdapter.SavedViewHolder>(SavedRvItemDiffCallback()) {
 
-    val characterDb = MainActivity().provideDataBase()
-    val viewModel = listener.onReceiveViewModelInstance()
+    val characterDb = MainActivity.characterDb
+    val viewModel = SavedFragment.viewModel
 
     inner class SavedViewHolder(private val binding: ItemCardBinding)
         : RecyclerView.ViewHolder(binding.root) {
@@ -68,10 +69,5 @@ class SavedRvAdapter(listener: ReceiveDataFromSavedFragment)
     override fun onBindViewHolder(holder: SavedViewHolder, position: Int) {
         val savedItem = getItem(position)
         holder.bind(savedItem)
-    }
-
-    interface ReceiveDataFromSavedFragment {
-        fun onReceiveDbInstance(): CharacterDatabase
-        fun onReceiveViewModelInstance(): CharacterViewModel
     }
 }

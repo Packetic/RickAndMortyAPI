@@ -9,10 +9,9 @@ import com.example.rickandmortyapi.R
 import com.example.rickandmortyapi.domain.room.CharacterDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), ProvideDataBase {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
-    private lateinit var characterDb: CharacterDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +25,7 @@ class MainActivity : AppCompatActivity(), ProvideDataBase {
         setupWithNavController(bottomNavigationView, navController)
     }
 
-    override fun provideDataBase(): CharacterDatabase {
-        characterDb = CharacterDatabase.getDatabase(this)
-        return characterDb
+    companion object {
+        lateinit var characterDb: CharacterDatabase
     }
-
-//    companion object {
-//        val characterDb = CharacterDatabase.getDatabase(this)
-//    }
 }

@@ -15,12 +15,7 @@ import com.example.rickandmortyapi.domain.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.FragmentCharacterBinding
 import com.example.rickandmortyapi.domain.enitity.CharacterRM
 import com.example.rickandmortyapi.ui.MainActivity
-import com.example.rickandmortyapi.ui.ProvideDataBase
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 class CharacterFragment : Fragment() {
 
@@ -40,8 +35,8 @@ class CharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: boilerplate
-        characterDb = MainActivity().provideDataBase()
+
+        characterDb = MainActivity.characterDb
         viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
         viewModel.loadCharacterData(args.id)
         observeViewModel()
@@ -75,7 +70,6 @@ class CharacterFragment : Fragment() {
         }
     }
 
-    // TODO: move to viewmodel
     private fun saveData() {
         val characterRM = setupCharacterRM()
         viewModel.writeCharacterToDB(characterDb, characterRM)
