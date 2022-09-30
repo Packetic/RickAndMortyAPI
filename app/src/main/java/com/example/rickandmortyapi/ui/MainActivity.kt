@@ -8,7 +8,9 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.rickandmortyapi.R
 import com.example.rickandmortyapi.domain.room.CharacterDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ProvideDataBase {
 
     private lateinit var navController: NavController
@@ -30,8 +32,4 @@ class MainActivity : AppCompatActivity(), ProvideDataBase {
         characterDb = CharacterDatabase.getDatabase(this)
         return characterDb
     }
-
-//    companion object {
-//        val characterDb = CharacterDatabase.getDatabase(this)
-//    }
 }

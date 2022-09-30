@@ -5,19 +5,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmortyapi.domain.room.CharacterDatabase
-import com.example.rickandmortyapi.data.repository.DataBaseRepositoryImpl
-import com.example.rickandmortyapi.data.repository.RetrofitRepositoryImpl
+import com.example.rickandmortyapi.data.local.DataBaseRepositoryImpl
+import com.example.rickandmortyapi.data.repository.Repository
 import com.example.rickandmortyapi.domain.enitity.CharacterRM
 import com.example.rickandmortyapi.domain.response.CharacterResponse
 import com.example.rickandmortyapi.domain.usecase.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class CharacterViewModel : ViewModel() {
-    var dataBaseRepository = DataBaseRepositoryImpl
-    var retrofitRepository = RetrofitRepositoryImpl
-    var getCharacterUseCase = GetCharacterUseCase(retrofitRepository)
+@HiltViewModel
+class CharacterViewModel @Inject constructor(
+    private val repository: Repository) : ViewModel() {
+    //    var retrofitRepository = RetrofitRepositoryImpl()
+    var getCharacterUseCase = GetCharacterUseCase(repository)
+    var dataBaseRepository = DataBaseRepositoryImpl()
     var readDataUseCase = ReadDataUseCase(dataBaseRepository)
     var readDataByIdUseCase = ReadDataByIdUseCase(dataBaseRepository)
     var insertDataUseCase = InsertDataUseCase(dataBaseRepository)

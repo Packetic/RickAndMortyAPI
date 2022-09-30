@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toDrawable
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.rickandmortyapi.R
@@ -16,10 +17,12 @@ import com.example.rickandmortyapi.databinding.FragmentCharacterDbBinding
 import com.example.rickandmortyapi.ui.MainActivity
 import com.example.rickandmortyapi.ui.ProvideDataBase
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharacterDbFragment : Fragment() {
 
-    lateinit var viewModel: CharacterViewModel
+    private val viewModel by viewModels<CharacterViewModel>()
     lateinit var characterDb: CharacterDatabase
     private var _binding: FragmentCharacterDbBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +39,6 @@ class CharacterDbFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
         viewModel.getCharacterFromDbById(characterDb, args.idDb)
         observeViewModel()
     }

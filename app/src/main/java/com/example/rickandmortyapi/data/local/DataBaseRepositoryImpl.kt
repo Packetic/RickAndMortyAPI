@@ -1,4 +1,4 @@
-package com.example.rickandmortyapi.data.repository
+package com.example.rickandmortyapi.data.local
 
 import com.example.rickandmortyapi.domain.room.CharacterDatabase
 import com.example.rickandmortyapi.data.api.RetrofitInstance
@@ -6,8 +6,11 @@ import com.example.rickandmortyapi.domain.enitity.CharacterRM
 import com.example.rickandmortyapi.domain.response.CharacterResponse
 import com.example.rickandmortyapi.domain.usecase.DataBaseRepository
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object DataBaseRepositoryImpl: DataBaseRepository {
+@Singleton
+class DataBaseRepositoryImpl @Inject constructor() : DataBaseRepository {
     override suspend fun readData(characterDb: CharacterDatabase): List<CharacterRM> {
         return characterDb.characterDao().getAll()
     }
