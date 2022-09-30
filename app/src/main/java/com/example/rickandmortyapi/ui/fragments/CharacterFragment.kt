@@ -8,27 +8,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.rickandmortyapi.R
-import com.example.rickandmortyapi.domain.room.CharacterDatabase
 import com.example.rickandmortyapi.databinding.FragmentCharacterBinding
 import com.example.rickandmortyapi.domain.enitity.CharacterRM
-import com.example.rickandmortyapi.ui.MainActivity
-import com.example.rickandmortyapi.ui.ProvideDataBase
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharacterFragment : Fragment() {
 
     private val viewModel by viewModels<CharacterViewModel>()
-    lateinit var characterDb: CharacterDatabase
     private var _binding: FragmentCharacterBinding? = null
     private val binding get() = _binding!!
     private val args: CharacterFragmentArgs by navArgs()
@@ -44,7 +35,6 @@ class CharacterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // TODO: boilerplate
-        characterDb = MainActivity().provideDataBase()
         viewModel.loadCharacterData(args.id)
         observeViewModel()
 
@@ -80,7 +70,7 @@ class CharacterFragment : Fragment() {
     // TODO: move to viewmodel
     private fun saveData() {
         val characterRM = setupCharacterRM()
-        viewModel.writeCharacterToDB(characterDb, characterRM)
+        viewModel.writeCharacterToDB(characterRM)
     }
 
     private fun setupCharacterRM(): CharacterRM {

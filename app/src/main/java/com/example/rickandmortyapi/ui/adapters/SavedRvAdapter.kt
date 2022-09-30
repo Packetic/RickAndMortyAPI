@@ -20,11 +20,8 @@ import com.example.rickandmortyapi.ui.fragments.SavedFragment
 import com.example.rickandmortyapi.ui.fragments.SearchFragmentDirections
 import com.example.rickandmortyapi.ui.stateholder.CharacterViewModel
 
-class SavedRvAdapter
+class SavedRvAdapter(private val onDeleteCallback: (CharacterRM) -> Unit)
     : ListAdapter<CharacterRM, SavedRvAdapter.SavedViewHolder>(SavedRvItemDiffCallback()) {
-
-    val characterDb = MainActivity.characterDb
-    val viewModel = SavedFragment.viewModel
 
     inner class SavedViewHolder(private val binding: ItemCardBinding)
         : RecyclerView.ViewHolder(binding.root) {
@@ -43,7 +40,7 @@ class SavedRvAdapter
                         else -> R.color.white
                     })
                 btnDelete.setOnClickListener {
-                    viewModel.deleteCharacterFromDB(characterDb, savedItem)
+                    onDeleteCallback(savedItem)
                 }
                 btnDetails.setOnClickListener {
                     val action = savedItem.id?.let { it1 ->
